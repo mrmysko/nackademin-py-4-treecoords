@@ -11,21 +11,32 @@ def treecoords(tree: dict, current_coord: tuple = ()) -> tuple:
 
     # Iterate over the dict.
     for key, value in tree.items():
+        # Sets the current cordinate + the current key as the coordinate.
+        # (variable,) sets a variable to a single-item tuple.
+        coords = current_coord + (key,)
         # Check if the value is a nested dict.
         if isinstance(value, dict):
             # Recursion - Call on itself with the nested dict as argument, and key as cordinate.
-            test = treecoords(value, key)
-            print(type(test))
-            print(f"Recursed: {test}")
+            mod_list.extend(treecoords(value, coords))
+
         # If not, this is the end of the "chain", add the cordinates and value to the list.
         else:
-            mod_list.append((key, value))
+            mod_list.extend((coords, value))
 
-    return mod_list
+    # Return a tuple with the total coordinates and the value.
+    return tuple(mod_list)
 
-    # OK, what is the base case?...we want to return a tuple with current_coords and the value
+    # .extend vs append - append adds entire tuple as a list item, expand "separates"
+    # https://ioflood.com/blog/python-list-extend-method-usage-and-examples/
+
+    #    mod_list.extend(treecoords(value, coords))
+    #    mod_list2.append(treecoords(value, coords))
+    #    print(mod_list[1])
+    #    print(mod_list2[0][1])
+    #    Same item
+
+    # OK, what is the base case?...a single tuple with current_coords and the value
     # {'a': 1} - lowest case. This should return as ('a',), 1)
-    # return ((key,), value)
 
 
 if __name__ == "__main__":
@@ -40,6 +51,7 @@ if __name__ == "__main__":
     # print(funktionsnamn("hejsan", 99))
     # print(funktionsnamn([19, 22, 31, 29, 1])
     print(treecoords({"a": 1}))
+    print(treecoords({"a": {"b": 1}}))
     print(treecoords({"a": 1, "b": 2}))
     print(treecoords({"x": {"y": 3}, "z": 4}))
     print(treecoords({"root": {"left": 5, "right": {"left": 6, "right": 7}}}))
