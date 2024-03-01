@@ -1,8 +1,10 @@
-# Uppgift X - Beskrivande titel
+# Uppgift 4 - Trädkoordinater
 
 ## <a name='Syfte'></a>Syfte
 
-Vad denna uppgift lär ut.
+Att lära ut hur man rekursivt navigerar genom en datastruktur bestående av
+dictionaries (dict i dict), samt hur man hanterar och returnerar data baserat på
+denna navigering.
 
 <!-- vscode-markdown-toc -->
 
@@ -11,8 +13,18 @@ Vad denna uppgift lär ut.
 - [Beskrivning](#Beskrivning)
   - [Detaljer](#Detaljer)
     - [Skapa en funktion](#Skapaenfunktion)
-    - [Tips](#Tips)
-    - [Exempel](#Exempel)
+- [Tips](#Tips)
+  - [Använda `items()`-metoden](#Anvndaitems-metoden)
+  - [Kontrollera om ett element är en
+    dictionary](#Kontrolleraomettelementrendictionary)
+  - [Rekursionstips](#Rekursionstips)
+    - [Hantera rekursiva returvärden](#Hanterarekursivareturvrden)
+- [Exempel](#Exempel)
+  - [Exempel 1](#Exempel1)
+  - [Exempel 2](#Exempel2)
+  - [Exempel 3](#Exempel3)
+  - [Exempel 4](#Exempel4)
+  - [Exempel 5](#Exempel5)
   - [Inlämningsinstruktioner](#Inlmningsinstruktioner)
 - [Anteckningar](#Anteckningar)
 
@@ -24,43 +36,222 @@ Vad denna uppgift lär ut.
 
 ## <a name='Frberedelser'></a>Förberedelser
 
-- Nödvändiga förberedelsesteg.
+- Se till att du är bekväm med grundläggande Python-syntax, särskilt
+  dictionaries och tuple.
+- Repetera rekursion och hur det kan användas för att lösa problem.
 
 ## <a name='Beskrivning'></a>Beskrivning
 
-Skriv en funktion med namnet `calculate_area` som beräknar arean av en
-rektangel.
+I denna uppgift ska du skriva en funktion `treecoords` som rekursivt navigerar
+genom en datastruktur bestående av dictionaries. Funktionen ska samla och
+returnera koordinater och värden för varje element som inte är en dictionary.
 
 ### <a name='Detaljer'></a>Detaljer
 
 #### <a name='Skapaenfunktion'></a>Skapa en funktion
 
-- **Funktionsignatur:** `def calculate_area(length: float, width: float) ->
-float:`
-- **Vad den ska göra:** Funktionen tar två argument, `length` och `width`, och
-  returnerar rektangelns area.
-- **Vad den ska skriva ut:** Funktionen ska skriva ut "Rektangelns area är: X"
-  innan den returnerar, där X är den beräknade arean.
-- **Vad den ska returnera:** Funktionen ska returnera den beräknade arean som
-  ett flyttal.
+- **Funktionsignatur:** `def treecoords(tree: dict, current_coord: tuple=()) ->
+tuple:`
+- **Vad den ska göra:** Funktionen ska ta ett "träd" (en dictionary som kan
+  innehålla andra dictionaries) och rekursivt gå igenom varje element.
+- **Vad den ska returnera:** En tuple av tuples. Varje element i den inre tupeln
+  ska vara en tuple med ("koordinat", värde), där "koordinat" är en tuple som
+  representerar vägen (nycklarna) man måste följa för att nå värdet.
 
-#### <a name='Tips'></a>Tips
+Självklart! Här lägger jag till några tips som kan hjälpa studenterna att bättre
+förstå och genomföra uppgiften, särskilt med fokus på rekursion och hantering av
+dictionaries.
 
-- Kom ihåg, arean av en rektangel beräknas som `längd * bredd`.
-- Se till att din funktion skriver ut det krävda meddelandet innan den
-  returnerar arean.
+## <a name='Tips'></a>Tips
 
-#### <a name='Exempel'></a>Exempel
+### <a name='Anvndaitems-metoden'></a>Använda `items()`-metoden
 
-1. **Anrop:** `calculate_area(5, 10)`
-   - **Förväntad utskrift:** "Rektangelns area är: 50"
-   - **Förväntat returvärde:** 50.0
-2. **Anrop:** `calculate_area(3.5, 2)`
-   - **Förväntad utskrift:** "Rektangelns area är: 7"
-   - **Förväntat returvärde:** 7.0
-3. **Anrop:** `calculate_area(7, 8)`
-   - **Förväntad utskrift:** "Rektangelns area är: 56"
-   - **Förväntat returvärde:** 56.0
+- Varje dictionary i Python har en metod som heter `items()`. Denna metod
+  returnerar en lista av tuple-par, där varje tuple innehåller en nyckel och
+  dess motsvarande värde. Använd denna metod för att iterera över både nycklar
+  och värden i ditt dictionary. Exempel:
+  ```python
+  for key, value in my_dict.items():
+      print(f"Key: {key}, Value: {value}")
+  ```
+
+### <a name='Kontrolleraomettelementrendictionary'></a>Kontrollera om ett element är en dictionary
+
+- För att avgöra om ett visst värde i ditt träd (dictionary) är en
+  underdictionary, kan du använda `isinstance()`-funktionen. Detta är särskilt
+  användbart för att avgöra om du ska göra ett rekursivt anrop eller inte.
+  Exempel:
+  ```python
+  if isinstance(value, dict):
+      # Gör ett rekursivt anrop
+  else:
+      # Hantera värdet som inte är en dictionary
+  ```
+
+### <a name='Rekursionstips'></a>Rekursionstips
+
+- När du anropar din funktion rekursivt, kom ihåg att uppdatera dina argument på
+  ett sätt som reflekterar din nuvarande position i trädet. Detta innebär ofta
+  att du lägger till den nuvarande nyckeln till din "koordinat"-tuple.
+- Tänk på basfallet för din rekursion. I detta fall är basfallet när funktionen
+  når ett värde som inte är en dictionary. Vid detta läge ska funktionen
+  returnera koordinaten och värdet istället för att göra ytterligare rekursiva
+  anrop.
+- Kom ihåg att samla ihop värdena från dina rekursiva anrop. Eftersom varje
+  anrop returnerar en tuple av tuples, behöver du sätta ihop dessa till en enda
+  tuple som du sedan returnerar från funktionen. Detta kan göras genom att
+  använda tuple-konkatenering eller genom att samla ihop resultaten i en lista
+  som sedan konverteras till en tuple.
+
+#### <a name='Hanterarekursivareturvrden'></a>Hantera rekursiva returvärden
+
+- Ett vanligt misstag vid rekursion är att inte korrekt hantera returvärden från
+  rekursiva anrop. Se till att du samlar ihop och returnerar dessa värden på ett
+  korrekt sätt. Om din funktion ska returnera en tuple av tuples, och varje
+  rekursivt anrop returnerar en del av denna tuple, måste du se till att dessa
+  delar samlas ihop korrekt.
+- Ett sätt att hantera detta är att initiera en tom lista i början av din
+  funktion, och sedan fylla på denna lista med resultat från varje rekursivt
+  anrop (eller direkt med värden om de inte är dictionaries). När alla rekursiva
+  anrop är klara, kan du konvertera denna lista till en tuple och returnera den.
+
+Genom att följa dessa tips bör studenterna få en bättre förståelse för hur man
+navigerar och manipulerar datastrukturer med rekursion, samt hur man effektivt
+använder Python's inbyggda funktioner för att arbeta med dictionaries. Absolut,
+här är exemplen uppdaterade med returvärdena uppdelade över flera rader för ökad
+läsbarhet, speciellt när det finns fler än tre element i returdatat.
+
+## <a name='Exempel'></a>Exempel
+
+### <a name='Exempel1'></a>Exempel 1
+
+**Anrop:**
+
+```python
+treecoords({
+    "a": 1,
+    "b": 2
+})
+```
+
+**Förväntad utskrift:** Inget!
+**Förväntat returvärde:**
+
+```python
+(
+    (("a",), 1),
+    (("b",), 2)
+)
+```
+
+### <a name='Exempel2'></a>Exempel 2
+
+**Anrop:**
+
+```python
+treecoords({
+    "x": {
+        "y": 3
+    },
+    "z": 4
+})
+```
+
+**Förväntad utskrift:** Inget!  
+**Förväntat returvärde:**
+
+```python
+(
+    (("x", "y"), 3),
+    (("z",), 4)
+)
+```
+
+### <a name='Exempel3'></a>Exempel 3
+
+**Anrop:**
+
+```python
+treecoords({
+    "root": {
+        "left": 5,
+        "right": {
+            "left": 6,
+            "right": 7
+        }
+    }
+})
+```
+
+**Förväntad utskrift:** Inget!  
+**Förväntat returvärde:**
+
+```python
+(
+    (("root", "left"), 5),
+    (("root", "right", "left"), 6),
+    (("root", "right", "right"), 7)
+)
+```
+
+### <a name='Exempel4'></a>Exempel 4
+
+**Anrop:**
+
+```python
+treecoords({
+    "1": {
+        "2": {
+            "3": {}
+        },
+        "4": {
+            "5": 8,
+            "6": 9
+        }
+    }
+})
+```
+
+**Förväntad utskrift:** Inget!  
+**Förväntat returvärde:**
+
+```python
+(
+    (("1", "4", "5"), 8),
+    (("1", "4", "6"), 9)
+)
+```
+
+### <a name='Exempel5'></a>Exempel 5
+
+**Anrop:**
+
+```python
+treecoords({
+    "a": {
+        "b": {
+            "c": 10,
+            "d": 11
+        },
+        "e": {
+            "f": 12
+        }
+    },
+    "g": 13
+})
+```
+
+**Förväntad utskrift:** Inget!  
+**Förväntat returvärde:**
+
+```python
+(
+    (("a", "b", "c"), 10),
+    (("a", "b", "d"), 11),
+    (("a", "e", "f"), 12),
+    (("g",), 13)
+)
+```
 
 ### <a name='Inlmningsinstruktioner'></a>Inlämningsinstruktioner
 
@@ -111,7 +302,3 @@ För att lämna in din uppgift, vänligen följ dessa steg:
 Det är också viktigt att noggrant granska feedbacken och göra de nödvändiga
 justeringarna baserat på utbildarens anvisningar för att säkerställa att din
 uppgift uppfyller alla krav.
-
-## <a name='Anteckningar'></a>Anteckningar
-
-Inga.
