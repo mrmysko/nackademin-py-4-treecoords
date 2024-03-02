@@ -27,7 +27,8 @@ def treecoords(tree: dict, current_coord: tuple = ()):
                 )
             )
             # --IGNORERA print("Value", value, " vid key", key, " är inte en dictionary\n")
-    return utmatning
+    # skapar en tupel av utmatningen.
+    return tuple(utmatning)
 
 
 if __name__ == "__main__":
