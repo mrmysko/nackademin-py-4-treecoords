@@ -1,5 +1,7 @@
-# Funktion som bearbetar dictionarys och tar reda på och spottar  ut
-# kordinater i form av values
+"""Funktion som bearbetar dictionarys och tar reda på och spottar  ut
+    koordinater i form av values som tuple"""
+
+
 def treecoords(tree: dict, current_coord: tuple = ()):
     # Skapar en tom tupel för att slutligen samla de samladen
     # värdena här
