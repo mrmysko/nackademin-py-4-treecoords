@@ -1,7 +1,6 @@
 import pytest
 
-
-fn_name = "stringt"
+fn_name = "treecoords"
 
 
 class ImportDetailsError(Exception):
@@ -16,34 +15,36 @@ try:
     if not callable(fn):
         raise ImportDetailsError(f"Function {fn_name} is not callable")
 
-    # Alt #1:
-    #
+    # Check if the function takes exactly two arguments
     if not fn.__code__.co_argcount == 2:
         raise ImportDetailsError(f"Function {fn_name} must take exactly two arguments")
 
-    # Alt #2:
-    #
-    # Kontrollera att funktionen accepterar en variabel mängd argument
-    # Notera: Vi kan inte enkelt kontrollera antalet positionella argument för
-    # en funktion som accepterar *args, så vi hoppar över den kontrollen här.
-
     def test_exempel_1():
-        assert fn("Hej", "världen", sep=", ", end="!") == "Hej, världen!"
+        assert fn({"a": 1, "b": 2}) == ((("a",), 1), (("b",), 2))
 
     def test_exempel_2():
-        assert fn("Python", "är", "kul") == "Python är kul\n"
+        assert fn({"x": {"y": 3}, "z": 4}) == ((("x", "y"), 3), (("z",), 4))
 
     def test_exempel_3():
-        assert fn("En", "två", "tre", sep=" - ") == "En - två - tre\n"
+        assert fn({"root": {"left": 5, "right": {"left": 6, "right": 7}}}) == (
+            (("root", "left"), 5),
+            (("root", "right", "left"), 6),
+            (("root", "right", "right"), 7),
+        )
 
     def test_exempel_4():
-        assert fn("Slut", end=".") == "Slut."
+        assert fn({"1": {"2": {"3": {}}, "4": {"5": 8, "6": 9}}}) == (
+            (("1", "4", "5"), 8),
+            (("1", "4", "6"), 9),
+        )
 
     def test_exempel_5():
-        assert fn("Ett", "argument", sep="") == "Ettargument\n"
-
-    def test_exempel_6():
-        assert fn("Ensam") == "Ensam\n"
+        assert fn({"a": {"b": {"c": 10, "d": 11}, "e": {"f": 12}}, "g": 13}) == (
+            (("a", "b", "c"), 10),
+            (("a", "b", "d"), 11),
+            (("a", "e", "f"), 12),
+            (("g",), 13),
+        )
 
 except ImportDetailsError as e:
     pytest.fail(str(e))
