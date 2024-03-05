@@ -1,5 +1,15 @@
-# Skriv endast din funktionsdefinition här på denna indenteringsnivå! Det är
-# viktigt att du ger funktionen exakt det namn som står i beskrivningen.
+def treecoords(tree, gren=()):
+    # Funktionen sätter så tree=trädet som ska undersökas,
+    # gren= en tom tuple som används för att hålla reda på vilken gren vi är på.
+    for key, value in tree.items():
+        ny_gren = gren + (key,)
+    #   Startar en loop som går igenom alla key-value par i trädet man är i just nu.
+        if isinstance(value, dict):
+            treecoords(value, ny_gren)
+    #   Om värdet är en dictionary så går den rekursivt igenom den dictionaryn.
+        else:
+            print(f'key: {ny_gren}, Value: {value}')
+    #   Ifall det inte är en dictionary så printar den ut nyckeln och värdet.
 
 if __name__ == "__main__":
     # Här kan du skriva testkod för din funktion. Denna körs endast när du kör
