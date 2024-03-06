@@ -2,11 +2,11 @@ def treecoords(tree: dict, current_coord: tuple=()) -> tuple:
     '''Returns a tuple of tuples of where the values that aren't dictionaries are in a dictionary of dictionaries'''
     results=[]
     for key, value in tree.items():
-        current_coord = current_coord + (key, )
+        current_key = current_coord + (key, )
         if isinstance(value, dict):
-            results.extend(treecoords(value, current_coord))
+            results.extend(treecoords(value, current_key))
         else:
-            results.append((current_coord, value))
+            results.append((current_key, value))
     return tuple(results)        
             
     
