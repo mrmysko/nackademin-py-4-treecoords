@@ -11,7 +11,7 @@ trad2 = {"gren1": "Ymmot", "gren2": trad1}
 trad3 = {"gren3": "Nasto", "gren4": trad2}
 
 
-def treecords(tree: dict, current_coord: tuple = ()) -> tuple:
+def treecoords(tree: dict, current_coord: tuple = ()) -> tuple:
 
     # For loopen läser igenom hela trädet och söker efter
     # värderna i trädet (nyckelpar + värdet) i den angivna "tree".
@@ -36,7 +36,7 @@ def treecords(tree: dict, current_coord: tuple = ()) -> tuple:
         # söka efter fler "grenar".
         # Som slutligen returnerar värdet i tuples
         if isinstance(value, dict):
-            result.extend(treecords(value, ny_coord))
+            result.extend(treecoords(value, ny_coord))
         else:
             result.append((ny_coord, value))
     return tuple(result)
@@ -49,12 +49,12 @@ if __name__ == "__main__":
     # Koden importeras som en modul av autograding-funktionen för att utföra ett
     # "smoke test" av din funktion, så det är viktigt att din kod inte kör något
     # utanför denna if-sats.
-    print(treecords(trad1))
-    print(treecords({"a:": 1, "b:": 2}))
-    print(treecords({"c:": 3, "d:": 4, "e:": 5}))
-    print(treecords({"f:": 6, "g:": 7, "h:": 8, "i:": 9}))
-    print(treecords(trad2))
-    print(treecords(trad3))
+    print(treecoords(trad1))
+    print(treecoords({"a:": 1, "b:": 2}))
+    print(treecoords({"c:": 3, "d:": 4, "e:": 5}))
+    print(treecoords({"f:": 6, "g:": 7, "h:": 8, "i:": 9}))
+    print(treecoords(trad2))
+    print(treecoords(trad3))
     #
     # Exempel:
     #
