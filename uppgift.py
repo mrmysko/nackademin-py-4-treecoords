@@ -1,7 +1,13 @@
 # Skriv endast din funktionsdefinition här på denna indenteringsnivå! Det är
 # viktigt att du ger funktionen exakt det namn som står i beskrivningen.
 
-# Skapar nästlade bibliotek och för att skapa
+# Skapar nästlade bibliotek och för att skapa under grenar.
+# Träd 3 är topp nivå = utökar hierarkin ocb inkl. "träd2" under nyckeln gren under nyckeln "gren3" med värde "Nasto"
+# Träd 2 kommer i mitten = dictionary som representerar en annan nivå "träd1" som en del och under nyckeln "gren2"
+# Träd1 kommer sist i nivån. = grundläggande dictionary
+# Dessa kallas för nästlade dictionaries
+# En så kallad herarkisk datastruktur.
+
 trad1 = {
     "name": "Tommy",
     "age": 35,
