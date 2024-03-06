@@ -36,8 +36,10 @@ def treecoords(tree: dict, current_coord: tuple = ()) -> tuple:
         # söka efter fler "grenar".
         # Som slutligen returnerar värdet i tuples
         if isinstance(value, dict):
-            result.append(treecoords(value, ny_coord))
-        else:
+            result.extend(
+                treecoords(value, ny_coord)
+            )  # Extend lägger till element från den tuple
+        else:  # som returneras av rekursiva anropet till result. Medans append i detta fall lägger resultat till en enda enhet
             result.append((ny_coord, value))
     return tuple(result)
 
