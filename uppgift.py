@@ -15,9 +15,11 @@ def treecoords(tree: dict, current_coord: tuple = ()) -> tuple:
             c = treecoords(value, current_coord)
             # Lägg till c i resultatlistan
             result.append(c)
+            # print(c)
         else:
             # Om värdet inte är en dictionary, skapa en tuple med koordinaten och värdet
-            a = (key,)
+            a = current_coord
+            # print(a)
             b = a, value
             b = tuple(b)
             # Lägg till b i resultatlistan
@@ -27,14 +29,15 @@ def treecoords(tree: dict, current_coord: tuple = ()) -> tuple:
     return tuple(result)
 
 
-# Exempel 1
-result_1 = treecoords({"a": 1, "b": 2})
-print(result_1)
+# # Exempel 1
+# result_1 = treecoords({"a": 1, "b": 2})
+# print(result_1)  # förvänta return ( (("a",), 1),(("b",), 2))
 
 # Exempel 2
 result_2 = treecoords({"x": {"y": 3}, "z": 4})
-print(result_2)
+print(result_2)  # ((("x", "y"), 3),(("z",), 4))
 
-# Exempel 3
-result_3 = treecoords({"root": {"left": 5, "right": {"left": 6, "right": 7}}})
-print(result_3)
+# # Exempel 3
+# result_3 = treecoords({"root": {"left": 5, "right": {"left": 6, "right": 7}}})
+# print(result_3)
+# # ((("root", "left"), 5),(("root", "right", "left"), 6),(("root", "right", "right"), 7))
