@@ -1,5 +1,4 @@
-def treecoords(tree):
-
+def treecoords(tree, config=None):
     result = []
 
     for key, value in tree.items():
