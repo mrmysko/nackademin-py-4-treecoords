@@ -57,10 +57,6 @@ tuple:`
   ska vara en tuple med ("koordinat", värde), där "koordinat" är en tuple som
   representerar vägen (nycklarna) man måste följa för att nå värdet.
 
-Självklart! Här lägger jag till några tips som kan hjälpa studenterna att bättre
-förstå och genomföra uppgiften, särskilt med fokus på rekursion och hantering av
-dictionaries.
-
 ## <a name='Tips'></a>Tips
 
 ### <a name='Anvndaitems-metoden'></a>Använda `items()`-metoden
