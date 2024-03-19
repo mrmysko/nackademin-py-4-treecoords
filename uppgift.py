@@ -5,10 +5,13 @@ def treecoords(tree, gren=()):
     if isinstance(tree, dict):
         for key, value in tree.items():
             ny_gren = gren + (key,)
+    # Kollar om tree är ett dictionary, om den är det då gör den ny_gren för att sätta key till gren för att veta vart man är.
             if isinstance(value, dict):
                 resultat += treecoords(value, ny_gren)
             else:
                 resultat += ((ny_gren, value),)
+    # Kolla om värdet man är på är dictionary, ifall den är det gör den rekursivt anrop och lägger value och ny_gren i funktionen till tupeln resultat,
+    # annars om det inte är dictionary skapa tupeln resultat med rätt värden.
     else:
         resultat += ((gren, tree),)
     return resultat
