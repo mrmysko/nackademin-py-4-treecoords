@@ -1,16 +1,25 @@
-# uppgift 4
+# Funktionen treecords tar två argument, tree som är en dictionary och currenct_cord som är en tuple med kordinater.
+# Resultat är en tom lista.
+# Funktionen går sedan igenom varje key-value i dictinaryn tree.
+# För varje key skapas en ny tuple (new_coord) och den lägger till nyckeln till "current_coord".
+# Om värdet (value) för den aktuella nyckeln(Key) är en ordbok, så anropas treecords igen (rekursivt, självupprepande, not to self) och då med new_coord som arg.
+# Resultatet av detta läggs till i resultat-listan.
+# Om värdet(value) inte är en dictionary så läggs en tuple med nyckeln och värdet till i resultat-listan.
+# När hela if-satsen gåtts igenom så returneras listan resultat som en tuple(flera koordinater i detta fall).
+
+
 def treecoords(tree: dict, current_coord: tuple = ()) -> tuple:
-    result = []
+    resultat = []
 
     for key, value in tree.items():
         new_coord = current_coord + (key,)
 
         if isinstance(value, dict):
-            result.extend(treecoords(value, new_coord))
+            resultat.extend(treecoords(value, new_coord))
         else:
-            result.append((new_coord, value))
+            resultat.append((new_coord, value))
 
-    return tuple(result)
+    return tuple(resultat)
 
 
 exempel1 = {"a": 1, "b": 2}
