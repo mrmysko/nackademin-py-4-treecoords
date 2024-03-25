@@ -1,23 +1,24 @@
 def treecoords(tree: dict, current_coord: tuple = ()):
-    # resultvalue = ()
+    # Result tuple
     result = ()
-    for key, value in tree.items():
 
-        new_coord = current_coord + tuple(key)
-        result += ((new_coord, value),)
-    # resultvalue = tuple(resultvalue) + tuple(value)
-    # print(new_coord, result)
-    # print("key:", key, "value:", value)
-    return (result,)  # resultvalue
-    # return ((("a",), "1"), (("b",), "2"))
-    # else:
-    #   print("Detta är inte ett dictionary")
+    for key, value in tree.items():  # Iterate through key-value pairs in tree
+
+        new_coord = current_coord + (key,)  # update coordinates
+
+        if isinstance(value, dict):  # check if the value is a dict
+            result += treecoords(value, new_coord)  # recursive call for subtree
+        else:
+            result += ((new_coord, value),)  # add coordinates and value to result tuple
+
+    return (result,)  # return result tuple
 
 
-my_dict = {"a": 1, "b": 2, "c": 3}
+x = treecoords({"root": {"left": 5, "right": {"left": 6, "right": 7}}})
 
-x = treecoords(my_dict)
-print("result:", x)
+print(x)
+
+
 # x = treecoords(my_dict)
 # print(x)
 
