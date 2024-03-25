@@ -3,6 +3,7 @@
 # beskrivningen.
 
 if __name__ == "__main__":
+
     # Här kan du skriva testkod som bara körs när du kör filen direkt och inte
     # när den importeras som modul i en annan fil.
     #
