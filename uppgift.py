@@ -1,33 +1,49 @@
-# definiera en funktion som tar ett träd som input och returnerar en tuple med koordinater och värden för varje lövnod i trädet.
-def treecoords(tree: dict, current_coord: tuple = ()) -> tuple:
+"""Funktion som bearbetar dictionarys och tar reda på och spottar  ut
+    koordinater i form av values som tuple"""
 
-    # skapa en tom lista för resultaten
-    result = []
 
-    # iterera över varje key-value par i trädet
+def treecoords(tree: dict, current_coord: tuple = ()):
+    # Skapar en tom tupel för att slutligen samla de samladen
+    # värdena här
+    utmatning = []
+    # forloop för att gå igenom varje element i dictionary och tupel
     for key, value in tree.items():
-
-        # lägg till den aktuella nyckeln till de aktuella koordinaterna
-        new_coord = current_coord + (key,)
-
-        # om värdet är en dict indikerar det ett underträd
-        # anropa funktionen rekursivt på underträdet och utöka resultatslistan
+        # --IGNORERA print("Key:", key, "Value:" value "\n")
+        # uppdaterar tupeln position med kordinater i dictionary.
+        # current_coord har ett tomt startvärde och det adderas en key
+        # efter varje itteration i forloopen
+        position = current_coord + (key,)
+        # kontrollerar om value är ett dictionary
         if isinstance(value, dict):
-            result.extend(treecoords(value, new_coord))
-
-        # om värdet inte är en dict indikerar det en lövnod
-        # lägg till koordinaterna och värdet till resultatslistan
+            # om value är en dictionary så utökas utmatning med den
+            # dictionary som kontrollerats
+            utmatning.extend(treecoords(value, position))
+        # --IGNORERA print("Key är", key, "value är", value, "current kord", current_coord, "\n")
         else:
-            result.append((new_coord, value))
-
-    # konvertera resultatslistan till en tuple och returnera den
-    return tuple(result)
+            # om value inte är en dictionary så utökas utmatning med
+            # det kontrollerade value
+            utmatning.append(
+                (
+                    position,
+                    value,
+                )
+            )
+            # --IGNORERA print("Value", value, " vid key", key, " är inte en dictionary\n")
+    # skapar en tupel av utmatningen istället för en lista.
+    return tuple(utmatning)
 
 
 if __name__ == "__main__":
-    # Exempel:
-    print(treecoords({"a": 1, "b": 2}))
-    print(treecoords({"x": {"y": 3}, "z": 4}))
-    print(treecoords({"root": {"left": 5, "right": {"left": 6, "right": 7}}}))
-    print(treecoords({"1": {"2": {"3": {}}, "4": {"5": 8, "6": 9}}}))
-    print(treecoords({"a": {"b": {"c": 10, "d": 11}, "e": {"f": 12}}, "g": 13}))
+    treecoords({"a": 1, "b": 2})
+    # ((("a",), 1),("b",), 2))
+
+    treecoords({"x": {"y": 3}, "z": 4})
+    # ((("x", "y"), 3), (("z",), 4))
+
+    treecoords({"root": {"left": 5, "right": {"left": 6, "right": 7}}})
+    # ((("root", "left"), 5), (("root", "right", "left"), 6), (("root", "right", "right"), 7))
+
+    treecoords({"1": {"2": {"3": {}}, "4": {"5": 8, "6": 9}}})
+    # ((("1", "4", "5"), 8), (("1", "4", "6"), 9))
+    treecoords({"a": {"b": {"c": 10, "d": 11}, "e": {"f": 12}}, "g": 13})
+# ((("a", "b", "c"), 10), (("a", "b", "d"), 11), (("a", "e", "f"), 12), (("g",), 13))
