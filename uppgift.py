@@ -1,29 +1,40 @@
 def treecoords(tree: dict, current_coord: tuple = ()) -> tuple:
+
+    # Skapa en tom lista för att lagra resultaten
     result = []
 
+    # Loopa igenom varje nyckel-värde-par i trädet
     for key, value in tree.items():
-        new_coord = current_coord + (key,)
 
+        # Uppdatera den aktuella koordinaten med den nuvarande nyckeln
+        new_current_coord = current_coord + (key,)
+        # print("key:", (key,))
+        # print("new_current_coord:", new_current_coord)
+
+        # Om värdet är en dictionary, gör ett rekursivt anrop
         if isinstance(value, dict):
-            result.extend(treecoords(value, new_coord))
-        else:
-            result.append((new_coord, value))
 
+            result.extend(treecoords(value, new_current_coord))
+            # print("key:", (key,))
+            # print("new_current_coord:", new_current_coord)
+
+        else:
+
+            result.append((new_current_coord, value))
+
+    # Konvertera listan med resultat till en tuple och returnera den
     return tuple(result)
 
 
-exempel1 = {"a": 1, "b": 2}
+# Exempel 1
+result_1 = treecoords({"a": 1, "b": 2})
+print(result_1)  # förvänta return ( (("a",), 1),(("b",), 2))
 
-exempel2 = {"x": {"y": 3}, "z": 4}
+# Exempel 2
+result_2 = treecoords({"x": {"y": 3}, "z": 4})
+print(result_2)  # ((("x", "y"), 3),(("z",), 4))
 
-exempel3 = {"root": {"left": 5, "right": {"left": 6, "right": 7}}}
-
-exempel4 = {"1": {"2": {"3": {}}, "4": {"5": 8, "6": 9}}}
-
-exempel5 = {"a": {"b": {"c": 10, "d": 11}, "e": {"f": 12}}, "g": 13}
-
-print(treecoords(exempel1))
-print(treecoords(exempel2))
-print(treecoords(exempel3))
-print(treecoords(exempel4))
-print(treecoords(exempel5))
+# Exempel 3
+result_3 = treecoords({"root": {"left": 5, "right": {"left": 6, "right": 7}}})
+print(result_3)
+# # ((("root", "left"), 5),(("root", "right", "left"), 6),(("root", "right", "right"), 7))
