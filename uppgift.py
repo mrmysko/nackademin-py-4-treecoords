@@ -1,23 +1,18 @@
-def treecoords(tree: dict, current_coord: tuple=()) -> tuple: 
-    # Funktionen treeecoords läser träd strukturerat data och omvanldar det till en platt lista av tuples. 
-    # Varje tuple har en sökväg i trädet.
-    results = []  # Skapar en tom lista för att samla ihop alla koordinaterna och värdena.
-
-    for key, value in tree.items(): # Loopar igenom varje element i trädet.
-        new_coord = current_coord + (key,) # Skapar en ny koordinat baserad på den aktuella platsen.
-
+def treecoords(tree: dict, current_coord: tuple=()) -> tuple:
+    '''Returns a tuple of tuples of where the values that aren't dictionaries are in a dictionary of dictionaries'''
+    results=[]
+    for key, value in tree.items():
+        current_key = current_coord + (key, )
         if isinstance(value, dict):
-            # Om värdet är en dictionary då finns det mer nivåer att utforska i trädet genom ett rekursivt anrop.
-            # Loopen fortsätter tills den når den sista nivån i trädet.
-            results.extend(treecoords(value, new_coord))
-        else: 
-            # Om värdet inte är en dictionary, läggs den nya koordinat och värdet i listan "results".
-            results.append((new_coord, value))
-
-    return tuple(results)  # Resultatet returneras som en tuple.
+            results.extend(treecoords(value, current_key))
+        else:
+            results.append((current_key, value))
+    return tuple(results)        
+            
+    
+    
 
 if __name__ == "__main__":
-
     print(treecoords({
     "a": 1,
     "b": 2
@@ -60,3 +55,4 @@ if __name__ == "__main__":
     },
     "g": 13
 }))
+    
