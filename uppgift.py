@@ -1,21 +1,58 @@
-# Skriv endast definitioner här på denna indenteringsnivå! Det är viktigt att du
-# namnger funktioner, klasser och variabler exakt med de namn som står i
-# beskrivningen.
+def treecoords(tree: dict, current_coord: tuple=()) -> tuple:
+    '''Returns a tuple of tuples of where the values that aren't dictionaries are in a dictionary of dictionaries'''
+    results=[]
+    for key, value in tree.items():
+        current_key = current_coord + (key, )
+        if isinstance(value, dict):
+            results.extend(treecoords(value, current_key))
+        else:
+            results.append((current_key, value))
+    return tuple(results)        
+            
+    
+    
 
 if __name__ == "__main__":
-    # Här kan du skriva testkod som bara körs när du kör filen direkt och inte
-    # när den importeras som modul i en annan fil.
-    #
-    # Koden importeras som en modul av autograding-funktionen för att utföra ett
-    # "smoke test" av din funktion, så det är viktigt att din kod inte kör något
-    # utanför denna if-sats.
-    #
-    # Exempel:
-    #
-    # print(funktionsnamn("hejsan", 99))
-    # print(funktionsnamn([19, 22, 31, 29, 1])
-    #
-    # Exempel:
-    # minklass = Klass()
-    # print(klass.leet("hejsan")
-    pass  # Ta bort denna rad när du skriver din kod
+    print(treecoords({
+    "a": 1,
+    "b": 2
+}))
+    print(treecoords({
+    "x": {
+        "y": 3
+    },
+    "z": 4
+}))
+    print(treecoords({
+    "root": {
+        "left": 5,
+        "right": {
+            "left": 6,
+            "right": 7
+        }
+    }
+}))
+    print(treecoords({
+    "1": {
+        "2": {
+            "3": {}
+        },
+        "4": {
+            "5": 8,
+            "6": 9
+        }
+    }
+}))
+    print(treecoords({
+    "a": {
+        "b": {
+            "c": 10,
+            "d": 11
+        },
+        "e": {
+            "f": 12
+        }
+    },
+    "g": 13
+}))
+    
