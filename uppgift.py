@@ -1,5 +1,20 @@
-# Skriv endast din funktionsdefinition här på denna indenteringsnivå! Det är
-# viktigt att du ger funktionen exakt det namn som står i beskrivningen.
+def treecoords(tree, gren=()):
+    # Funktionen sätter så tree=trädet som ska undersökas,
+    # gren= en tom tuple som används för att hålla reda på vilken gren vi är på.
+    resultat = ()
+    if isinstance(tree, dict):
+        for key, value in tree.items():
+            ny_gren = gren + (key,)
+    # Kollar om tree är ett dictionary, om den är det då gör den ny_gren för att sätta key till gren för att veta vart man är.
+            if isinstance(value, dict):
+                resultat += treecoords(value, ny_gren)
+            else:
+                resultat += ((ny_gren, value),)
+    # Kolla om värdet man är på är dictionary, ifall den är det gör den rekursivt anrop och lägger value och ny_gren i funktionen till tupeln resultat,
+    # annars om det inte är dictionary skapa tupeln resultat med rätt värden.
+    else:
+        resultat += ((gren, tree),)
+    return resultat
 
 
 def treecoords(tree: dict, current_coord: tuple = ()) -> tuple:
@@ -40,11 +55,18 @@ def treecoords(tree: dict, current_coord: tuple = ()) -> tuple:
 
 
 if __name__ == "__main__":
+
     # Här kan du skriva testkod för din funktion. Denna körs endast när du kör
     # filen direkt, och inte när du importerar den som modul i en annan fil.
     # Koden importeras som en modul av autograding-funktionen för att utföra ett
     # "smoke test" av din funktion, så det är viktigt att din kod inte kör något
     # utanför denna if-sats.
+    print(treecoords(trad1))
+    print(treecoords({"a:": 1, "b:": 2}))
+    print(treecoords({"c:": 3, "d:": 4, "e:": 5}))
+    print(treecoords({"f:": 6, "g:": 7, "h:": 8, "i:": 9}))
+    print(treecoords(trad2))
+    print(treecoords(trad3))
     #
     # Exempel:
     #
