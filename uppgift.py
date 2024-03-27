@@ -1,22 +1,27 @@
-# Skriv endast definitioner här på denna indenteringsnivå! Det är viktigt att du
-# namnger funktioner, klasser och variabler exakt med de namn som står i
-# beskrivningen.
+def treecoords(tree: dict, current_coord: tuple = ()):
+    # Result tuple
+    result = ()
+
+    for key, value in tree.items():  # Iterate through key-value pairs in tree
+
+        new_coord = current_coord + (key,)  # update coordinates
+
+        if isinstance(value, dict):  # check if the value is a dict
+            result += treecoords(value, new_coord)  # recursive call for subtree
+        else:
+            result += ((new_coord, value),)  # add coordinates and value to result tuple
+
+    return result  # return result tuple
+
 
 if __name__ == "__main__":
-
-    # Här kan du skriva testkod som bara körs när du kör filen direkt och inte
-    # när den importeras som modul i en annan fil.
-    #
-    # Koden importeras som en modul av autograding-funktionen för att utföra ett
-    # "smoke test" av din funktion, så det är viktigt att din kod inte kör något
-    # utanför denna if-sats.
-    #
-    # Exempel:
-    #
-    # print(funktionsnamn("hejsan", 99))
-    # print(funktionsnamn([19, 22, 31, 29, 1])
-    #
-    # Exempel:
-    # minklass = Klass()
-    # print(klass.leet("hejsan")
-    pass  # Ta bort denna rad när du skriver din kod
+    # Exempel 1
+    print(treecoords({"a": 1, "b": 2}))
+    # Exempel 2
+    print(treecoords({"x": {"y": 3}, "z": 4}))
+    # Exempel 3
+    print(treecoords({"root": {"left": 5, "right": {"left": 6, "right": 7}}}))
+    # Exempel 4
+    print(treecoords({"1": {"2": {"3": {}}, "4": {"5": 8, "6": 9}}}))
+    # Exempel 5
+    print(treecoords({"a": {"b": {"c": 10, "d": 11}, "e": {"f": 12}}, "g": 13}))
