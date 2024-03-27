@@ -1,4 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/1kTndXhL)
 # Uppgift 4 - Trädkoordinater
 
 ## <a name='Syfte'></a>Syfte
@@ -16,8 +15,7 @@ denna navigering.
     - [Skapa en funktion](#Skapaenfunktion)
 - [Tips](#Tips)
   - [Använda `items()`-metoden](#Anvndaitems-metoden)
-  - [Kontrollera om ett element är en
-    dictionary](#Kontrolleraomettelementrendictionary)
+  - [Kontrollera om ett element är en dictionary](#Kontrolleraomettelementrendictionary)
   - [Rekursionstips](#Rekursionstips)
     - [Hantera rekursiva returvärden](#Hanterarekursivareturvrden)
 - [Exempel](#Exempel)
@@ -58,10 +56,6 @@ tuple:`
 - **Vad den ska returnera:** En tuple av tuples. Varje element i den inre tupeln
   ska vara en tuple med ("koordinat", värde), där "koordinat" är en tuple som
   representerar vägen (nycklarna) man måste följa för att nå värdet.
-
-Självklart! Här lägger jag till några tips som kan hjälpa studenterna att bättre
-förstå och genomföra uppgiften, särskilt med fokus på rekursion och hantering av
-dictionaries.
 
 ## <a name='Tips'></a>Tips
 
@@ -285,21 +279,25 @@ För att lämna in din uppgift, vänligen följ dessa steg:
 5. **Feedback och granskning från utbildaren:**
 
    - Om dina tester passerar med en grön bock, kan du invänta feedback från din
-     utbildare. Utbildaren kan antingen sätta "request changes" om ytterligare
+     utbildare. Utbildaren kan antingen sätta "Request Changes" om ytterligare
      förändringar behövs, eller "approve" om uppgiften är godkänd som den är.
-     Det är viktigt att du inväntar någon av dessa innan du fortsätter.
-   - Efter att utbildaren har gjort "approve" på din inlämning, får du göra en
-     "merge" av din pull request till huvudgrenen (main/master), men inte förrän
-     godkännande har erhållits.
+     Det är viktigt att du inväntar någon av dessa innan du väljer Merge.
+   - Vid "Request Changes" är det viktigt att noggrant granska feedbacken och
+     göra de nödvändiga justeringarna baserat på utbildarens anvisningar för att
+     säkerställa att din uppgift uppfyller alla krav.
+   - Efter att utbildaren har gjort "Approve" på din inlämning, får du göra en
+     "Merge" av din "Feedback"-pull request, men inte förrän ett godkännande har
+     erhållits.
 
-6. **Initiera diskussioner i pull requesten:**
+6. **Initiera diskussioner i "Feedback"-pull requesten:**
+
    - Som student är du uppmuntrad att aktivt delta i processen genom att
-     initiera diskussioner i din pull request. Detta är en viktig del av
-     inlärningsprocessen, där du kan ställa frågor, begära förtydliganden eller
-     diskutera lösningar och feedback med din utbildare. Att engagera sig i
-     dessa diskussioner ger dig möjlighet att djupare förstå uppgiftens krav och
-     förbättra din kod baserat på interaktionen.
+     initiera diskussioner i din "Feedback"-pull request. Detta är en viktig del
+     av inlärningsprocessen, där du kan ställa frågor, begära förtydliganden
+     eller diskutera lösningar och feedback med din utbildare. Att engagera sig
+     i dessa diskussioner ger dig möjlighet att djupare förstå uppgiftens krav
+     och förbättra din kod baserat på interaktionen.
 
-Det är också viktigt att noggrant granska feedbacken och göra de nödvändiga
-justeringarna baserat på utbildarens anvisningar för att säkerställa att din
-uppgift uppfyller alla krav.
+## <a name='Anteckningar'></a>Anteckningar
+
+Inga.
