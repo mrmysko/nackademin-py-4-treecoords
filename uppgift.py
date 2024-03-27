@@ -1,55 +1,36 @@
-# Skriv endast din funktionsdefinition här på denna indenteringsnivå! Det är
-# viktigt att du ger funktionen exakt det namn som står i beskrivningen.
+def treecoords(tree, gren=()):
+    # Funktionen sätter så tree=trädet som ska undersökas,
+    # gren= en tom tuple som används för att hålla reda på vilken gren vi är på.
+    resultat = ()
+    if isinstance(tree, dict):
+        for key, value in tree.items():
+            ny_gren = gren + (key,)
+    # Kollar om tree är ett dictionary, om den är det då gör den ny_gren för att sätta key till gren för att veta vart man är.
+            if isinstance(value, dict):
+                resultat += treecoords(value, ny_gren)
+            else:
+                resultat += ((ny_gren, value),)
+    # Kolla om värdet man är på är dictionary, ifall den är det gör den rekursivt anrop och lägger value och ny_gren i funktionen till tupeln resultat,
+    # annars om det inte är dictionary skapa tupeln resultat med rätt värden.
+    else:
+        resultat += ((gren, tree),)
+    return resultat
 
-# Skapar nästlade bibliotek och för att skapa under grenar.
-# Träd 3 är topp nivå = utökar hierarkin ocb inkl. "träd2" under nyckeln gren under nyckeln "gren3" med värde "Nasto"
-# Träd 2 kommer i mitten = dictionary som representerar en annan nivå "träd1" som en del och under nyckeln "gren2"
-# Träd1 kommer sist i nivån. = grundläggande dictionary
-# Dessa kallas för nästlade dictionaries
-# En så kallad herarkisk datastruktur.
+träd = ({
+    "root": {
+        "left": 5,
+        "right": {
+            "left": 6,
+            "right": 7
+        }
+    }
+})
 
-trad1 = {
-    "name": "Tommy",
-    "age": 35,
-    "City": "Stockholm",
-}
-trad2 = {"gren1": "Ymmot", "gren2": trad1}
-trad3 = {"gren3": "Nasto", "gren4": trad2}
-
-
-def treecoords(tree: dict, current_coord: tuple = ()) -> tuple:
-
-    # For loopen läser igenom hela trädet och söker efter
-    # värderna i trädet (nyckelpar + värdet) i den angivna "tree".
-    # Sedan skapas en ny variabel för koordinaterna
-    # som sedan visar vägen till varje värde (ny_coord)
-    # För varje iteration i loopen kollar om "value"är en
-    # dictionary, då anropas funktionen rekursivt, för att
-    # navigera djupare in i "trädet".
-
-    result = []  # Skapar en tom lista
-    for key, value in tree.items():  # items skriver ut keys och values
-        ny_coord = current_coord + (
-            key,
-        )  # komman (,) i key - behövs annars kan ej python läsa den som en tuple
-
-        # Här kollar man om value är en dictionary
-        # och visar resultatet i funktionen rekursivt
-        # OM value är en dictionary, då går treecords djupare
-        # in i trädet rekursivt för att söka efter fler (under grenar)
-        # OM inte det är en dictionary då har man nått slutet i "trädet"
-        # så kallad "nästling". Vilket menas finns inget värde för att rekursivt
-        # söka efter fler "grenar".
-        # Som slutligen returnerar värdet i tuples
-        if isinstance(value, dict):
-            result.extend(
-                treecoords(value, ny_coord)
-            )  # Extend lägger till element från den tuple
-        else:  # som returneras av rekursiva anropet till result. Medans append i detta fall lägger resultat till en enda enhet
-            result.append((ny_coord, value))
-    return tuple(result)
+result = treecoords(träd)
 
 
+for item in result:
+    print(item)
 if __name__ == "__main__":
 
     # Här kan du skriva testkod för din funktion. Denna körs endast när du kör
