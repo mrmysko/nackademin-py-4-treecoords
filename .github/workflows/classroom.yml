@@ -14,17 +14,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: test treecoords()
-      id: test-treecoords
+    - name: check
+      id: check
       uses: education/autograding-command-grader@v1
       with:
-        test-name: test treecoords()
-        setup-command: sudo -H pip3 install pytest
-        command: pytest .autograde/grade.py
-        timeout: 11
+        test-name: check
+        setup-command: ''
+        command: "./.autograde/run"
+        timeout: 10
     - name: Autograding Reporter
       uses: education/autograding-grading-reporter@v1
       env:
-        TEST-TREECOORDS_RESULTS: "${{steps.test-treecoords.outputs.result}}"
+        CHECK_RESULTS: "${{steps.check.outputs.result}}"
       with:
-        runners: test-treecoords
+        runners: check
